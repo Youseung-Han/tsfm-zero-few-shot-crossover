@@ -61,6 +61,12 @@ build/
 credentials*.json
 token*.json
 secrets*.json
+# Publication staging, original experiment archives and local run logs
+/deliverables/
+/*.zip
+/*.zip.sha256
+/*.log
+/tmp/
 # User-returned GPU archives stay local; only validated small JSON is versioned.
 /ttm-adapter-results.zip
 /moirai1-adapter-results.zip

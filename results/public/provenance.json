@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "source": "reviewed raw result JSONs in preserved writing kit",
+  "source_kit_name": "tsfm-paper-writing-kit-2026-10-09.zip",
+  "source_kit_sha256": "e8ddb9bf656f02fec8ea1dd9e0954082a6e4c66b43f051b9da3119be0ecf5cf1",
+  "source_member_sha256": "6b81ce65dfb4ec0ea3fecf226879c06aec3d04bd69f65aea89c9bd470b73a5bd",
+  "kit_missing_editorial_members": [
+    "claims_and_checklist.txt"
+  ],
+  "conditions": 270,
+  "execution_commit": "3e18305032484239966026f14395b903c9abf268",
+  "checks": [
+    "kit member checksums",
+    "pinned canonical review checksums",
+    "raw records equal canonical compact records",
+    "paired data/windows/sampling"
+  ],
+  "original_execution_archives_reopened": false,
+  "prediction_arrays_recomputed": false,
+  "new_gpu_execution": false,
+  "files": {
+    "conditions.csv": "bdb3364bbf8acdc458755891d8b5872254aadf4521dba16edf37c2a1891a0441",
+    "environments.json": "651dd3857a06379b54ff58dd3b2309f17c754c3e8738d49afff95dfb12ecb6f4",
+    "model_settings.json": "4dad7e7c96fd74c2e6ae430d2fce685cc54b3e29c7406926aa10e537326123ff",
+    "source_archive_hashes.json": "a51f692a22b3e028875e20959ddff5296905053f46162502da2e6a349351b6cb"
+  }
+}

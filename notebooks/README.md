@@ -1,9 +1,6 @@
-# Notebooks
+# Colab notebooks
 
-모델별 격리 Colab Pro+ compatibility probe를 제공합니다.
+- [50_results_analysis.ipynb](50_results_analysis.ipynb): GPU 없이 공개 CSV에서 표·그림·구간을 생성합니다.
+- [51_minimal_ttm_etth1.ipynb](51_minimal_ttm_etth1.ipynb): 데이터 준비→Zero-Shot→0.5%FT→동일 시험 샘플 평가의 최소 예제입니다. 기본 smoke 수치는 논문과 직접 비교할 수 없습니다.
 
-- `10_ttm_compatibility.ipynb`: 고정 TTM R3 synthetic/ETTh1 validation inference와 1-step full fine-tuning smoke
-- `11_moirai_compatibility.ipynb`: 고정 MOIRAI 2 synthetic/ETTh1 validation inference smoke
-- `12_moirai1_compatibility.ipynb`: 고정 MOIRAI 1.1 다변량 네 horizon, 공식 full fine-tuning 및 CUDA memory gate
-
-MOIRAI 2 notebook은 고정 공식 코드에서 완성된 full fine-tuning API를 찾지 못했으므로 학습을 실행하지 않습니다. 두 notebook 모두 test split을 사용하지 않으며 cache와 weight는 Git에 저장하지 않습니다.
+두 notebook은 같은 저장소의 검토된 코드 revision을 사용합니다. 개인 Drive나 토큰은 필요하지 않습니다. 전체270조건 및 고정 GPU 환경은 [재현 안내](../docs/reproducibility.md)를 참고하세요.

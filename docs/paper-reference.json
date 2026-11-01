@@ -1,0 +1,102 @@
+{
+  "source": {
+    "filename": "TSFM성능전환구간분석(한유승).pdf",
+    "sha256": "eff54b0370925ffaaea3e481c91edbbbaf4b878b6bc6a9da6a450dbe0e44b152",
+    "pages": [
+      2
+    ],
+    "note": "Manual transcription of rounded PDF Tables 1 and 2; comparison targets only, never raw experiment inputs."
+  },
+  "rows": [
+    {
+      "model": "ttm",
+      "dataset": "ETTh1",
+      "zs": "0.43859",
+      "ft100": "0.43167",
+      "improvement_percent": "1.58",
+      "mean_interval_percent": "(0.5, 1]",
+      "all_seed_interval_percent": "(2, 5]"
+    },
+    {
+      "model": "ttm",
+      "dataset": "ETTh2",
+      "zs": "0.30756",
+      "ft100": "0.30132",
+      "improvement_percent": "2.03",
+      "mean_interval_percent": "(0, 0.5]",
+      "all_seed_interval_percent": "(0, 0.5]"
+    },
+    {
+      "model": "ttm",
+      "dataset": "ETTm1",
+      "zs": "0.36374",
+      "ft100": "0.36261",
+      "improvement_percent": "0.31",
+      "mean_interval_percent": "(0.5, 1]",
+      "all_seed_interval_percent": "not observed on grid"
+    },
+    {
+      "model": "ttm",
+      "dataset": "ETTm2",
+      "zs": "0.25308",
+      "ft100": "0.24515",
+      "improvement_percent": "3.14",
+      "mean_interval_percent": "(0, 0.5]",
+      "all_seed_interval_percent": "(0, 0.5]"
+    },
+    {
+      "model": "ttm",
+      "dataset": "Tetouan",
+      "zs": "0.22379",
+      "ft100": "0.21175",
+      "improvement_percent": "5.38",
+      "mean_interval_percent": "(0, 0.5]",
+      "all_seed_interval_percent": "(0, 0.5]"
+    },
+    {
+      "model": "moirai1",
+      "dataset": "ETTh1",
+      "zs": "0.45729",
+      "ft100": "0.45302",
+      "improvement_percent": "0.93",
+      "mean_interval_percent": "(0, 0.5]",
+      "all_seed_interval_percent": "(0.5, 1]"
+    },
+    {
+      "model": "moirai1",
+      "dataset": "ETTh2",
+      "zs": "0.31954",
+      "ft100": "0.31554",
+      "improvement_percent": "1.25",
+      "mean_interval_percent": "(0, 0.5]",
+      "all_seed_interval_percent": "(0, 0.5]"
+    },
+    {
+      "model": "moirai1",
+      "dataset": "ETTm1",
+      "zs": "0.50413",
+      "ft100": "0.36784",
+      "improvement_percent": "27.04",
+      "mean_interval_percent": "(0, 0.5]",
+      "all_seed_interval_percent": "(0, 0.5]"
+    },
+    {
+      "model": "moirai1",
+      "dataset": "ETTm2",
+      "zs": "0.29156",
+      "ft100": "0.25102",
+      "improvement_percent": "13.91",
+      "mean_interval_percent": "(0, 0.5]",
+      "all_seed_interval_percent": "(0, 0.5]"
+    },
+    {
+      "model": "moirai1",
+      "dataset": "Tetouan",
+      "zs": "0.47239",
+      "ft100": "0.23066",
+      "improvement_percent": "51.17",
+      "mean_interval_percent": "(0, 0.5]",
+      "all_seed_interval_percent": "(0, 0.5]"
+    }
+  ]
+}

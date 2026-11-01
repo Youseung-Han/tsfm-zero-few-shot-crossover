@@ -2,7 +2,6 @@ import csv
 import json
 
 import pytest
-from scripts.import_adapter_results import validate
 
 from tsfm_crossover.data.pilot_data import digest, load_pilot_values
 from tsfm_crossover.evaluation.metrics import (
@@ -129,20 +128,6 @@ def test_plan_ratio_and_budget_separate_and_blocked_datasets_retained():
 def test_pilot_limits(changes):
     with pytest.raises(ValueError):
         PilotConfig(**changes)
-
-
-def test_adapter_evidence_checks_missing_or_duplicate_rejected():
-    from pathlib import Path
-
-    records = [
-        json.loads(p.read_text()) for p in Path("results/manifests/adapters/gpu").glob("*-h*.json")
-    ]
-    validate(records)
-    with pytest.raises(ValueError, match="duplicate"):
-        validate(records + [records[0]])
-    del records[0]["checks"]["restore_rng"]
-    with pytest.raises(ValueError, match="incomplete"):
-        validate(records)
 
 
 def test_model_independent_pilot_sampling_and_validation(tmp_path):

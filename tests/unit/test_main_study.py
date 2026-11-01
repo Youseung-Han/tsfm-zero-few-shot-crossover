@@ -201,28 +201,15 @@ def test_runtime_is_pinned_to_gpu_budget_not_cpu_versions():
             verify_runtime(runtime, family, ROOT)
 
 
-def test_main_notebook_is_output_free_python_and_no_hidden_execution():
+def test_public_notebooks_are_output_free_python():
     import ast
 
-    notebook = json.loads((ROOT / "notebooks/40_main_study.ipynb").read_text(encoding="utf-8"))
-    for cell in notebook["cells"]:
-        if cell["cell_type"] == "code":
-            assert cell["outputs"] == [] and cell["execution_count"] is None
-            source = "".join(cell["source"])
-            ast.parse(source)
-            assert '"pull"' not in source
-    assert [c["id"] for c in notebook["cells"]] == [
-        "intro",
-        "runtime",
-        "repository",
-        "drive",
-        "installation",
-        "plan",
-        "data",
-        "run",
-        "export",
-        "next",
-    ]
+    for name in ("50_results_analysis.ipynb", "51_minimal_ttm_etth1.ipynb"):
+        notebook = json.loads((ROOT / "notebooks" / name).read_text(encoding="utf-8"))
+        for cell in notebook["cells"]:
+            if cell["cell_type"] == "code":
+                assert cell["outputs"] == [] and cell["execution_count"] is None
+                ast.parse("".join(cell["source"]))
 
 
 def test_main_requirements_match_returned_gpu_versions():

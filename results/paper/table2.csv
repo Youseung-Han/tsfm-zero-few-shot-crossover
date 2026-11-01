@@ -1,0 +1,11 @@
+model,dataset,mean_status,mean_interval_percent,all_seed_status,all_seed_interval_percent,mean_lower,mean_upper,all_seed_lower,all_seed_upper
+ttm,ETTh1,observed_on_grid,"(0.5, 1]",observed_on_grid,"(2, 5]",0.005,0.01,0.02,0.05
+ttm,ETTh2,observed_on_grid,"(0, 0.5]",observed_on_grid,"(0, 0.5]",0.0,0.005,0.0,0.005
+ttm,ETTm1,observed_on_grid,"(0.5, 1]",not_observed_on_grid,not observed on grid,0.005,0.01,,
+ttm,ETTm2,observed_on_grid,"(0, 0.5]",observed_on_grid,"(0, 0.5]",0.0,0.005,0.0,0.005
+ttm,Tetouan,observed_on_grid,"(0, 0.5]",observed_on_grid,"(0, 0.5]",0.0,0.005,0.0,0.005
+moirai1,ETTh1,observed_on_grid,"(0, 0.5]",observed_on_grid,"(0.5, 1]",0.0,0.005,0.005,0.01
+moirai1,ETTh2,observed_on_grid,"(0, 0.5]",observed_on_grid,"(0, 0.5]",0.0,0.005,0.0,0.005
+moirai1,ETTm1,observed_on_grid,"(0, 0.5]",observed_on_grid,"(0, 0.5]",0.0,0.005,0.0,0.005
+moirai1,ETTm2,observed_on_grid,"(0, 0.5]",observed_on_grid,"(0, 0.5]",0.0,0.005,0.0,0.005
+moirai1,Tetouan,observed_on_grid,"(0, 0.5]",observed_on_grid,"(0, 0.5]",0.0,0.005,0.0,0.005

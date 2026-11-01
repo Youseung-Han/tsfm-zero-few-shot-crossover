@@ -1,0 +1,422 @@
+{
+  "input_sha256": "bdb3364bbf8acdc458755891d8b5872254aadf4521dba16edf37c2a1891a0441",
+  "available_rows": 270,
+  "completed_conditions": 270,
+  "expected_conditions": 270,
+  "new_gpu_execution": false,
+  "paper_comparison": {
+    "source": {
+      "filename": "TSFM성능전환구간분석(한유승).pdf",
+      "sha256": "eff54b0370925ffaaea3e481c91edbbbaf4b878b6bc6a9da6a450dbe0e44b152",
+      "pages": [
+        2
+      ],
+      "note": "Manual transcription of rounded PDF Tables 1 and 2; comparison targets only, never raw experiment inputs."
+    },
+    "checks": [
+      {
+        "model": "ttm",
+        "dataset": "ETTh1",
+        "field": "zs",
+        "pdf": "0.43859",
+        "computed_rounded": "0.43859",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTh1",
+        "field": "ft100",
+        "pdf": "0.43167",
+        "computed_rounded": "0.43167",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTh1",
+        "field": "improvement_percent",
+        "pdf": "1.58",
+        "computed_rounded": "1.58",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTh1",
+        "field": "mean_interval_percent",
+        "pdf": "(0.5, 1]",
+        "computed": "(0.5, 1]",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTh1",
+        "field": "all_seed_interval_percent",
+        "pdf": "(2, 5]",
+        "computed": "(2, 5]",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTh2",
+        "field": "zs",
+        "pdf": "0.30756",
+        "computed_rounded": "0.30756",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTh2",
+        "field": "ft100",
+        "pdf": "0.30132",
+        "computed_rounded": "0.30132",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTh2",
+        "field": "improvement_percent",
+        "pdf": "2.03",
+        "computed_rounded": "2.03",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTh2",
+        "field": "mean_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTh2",
+        "field": "all_seed_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTm1",
+        "field": "zs",
+        "pdf": "0.36374",
+        "computed_rounded": "0.36374",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTm1",
+        "field": "ft100",
+        "pdf": "0.36261",
+        "computed_rounded": "0.36261",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTm1",
+        "field": "improvement_percent",
+        "pdf": "0.31",
+        "computed_rounded": "0.31",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTm1",
+        "field": "mean_interval_percent",
+        "pdf": "(0.5, 1]",
+        "computed": "(0.5, 1]",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTm1",
+        "field": "all_seed_interval_percent",
+        "pdf": "not observed on grid",
+        "computed": "not observed on grid",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTm2",
+        "field": "zs",
+        "pdf": "0.25308",
+        "computed_rounded": "0.25308",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTm2",
+        "field": "ft100",
+        "pdf": "0.24515",
+        "computed_rounded": "0.24515",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTm2",
+        "field": "improvement_percent",
+        "pdf": "3.14",
+        "computed_rounded": "3.14",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTm2",
+        "field": "mean_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "ETTm2",
+        "field": "all_seed_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "Tetouan",
+        "field": "zs",
+        "pdf": "0.22379",
+        "computed_rounded": "0.22379",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "Tetouan",
+        "field": "ft100",
+        "pdf": "0.21175",
+        "computed_rounded": "0.21175",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "Tetouan",
+        "field": "improvement_percent",
+        "pdf": "5.38",
+        "computed_rounded": "5.38",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "Tetouan",
+        "field": "mean_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "ttm",
+        "dataset": "Tetouan",
+        "field": "all_seed_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTh1",
+        "field": "zs",
+        "pdf": "0.45729",
+        "computed_rounded": "0.45729",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTh1",
+        "field": "ft100",
+        "pdf": "0.45302",
+        "computed_rounded": "0.45302",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTh1",
+        "field": "improvement_percent",
+        "pdf": "0.93",
+        "computed_rounded": "0.93",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTh1",
+        "field": "mean_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTh1",
+        "field": "all_seed_interval_percent",
+        "pdf": "(0.5, 1]",
+        "computed": "(0.5, 1]",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTh2",
+        "field": "zs",
+        "pdf": "0.31954",
+        "computed_rounded": "0.31954",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTh2",
+        "field": "ft100",
+        "pdf": "0.31554",
+        "computed_rounded": "0.31554",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTh2",
+        "field": "improvement_percent",
+        "pdf": "1.25",
+        "computed_rounded": "1.25",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTh2",
+        "field": "mean_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTh2",
+        "field": "all_seed_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTm1",
+        "field": "zs",
+        "pdf": "0.50413",
+        "computed_rounded": "0.50413",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTm1",
+        "field": "ft100",
+        "pdf": "0.36784",
+        "computed_rounded": "0.36784",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTm1",
+        "field": "improvement_percent",
+        "pdf": "27.04",
+        "computed_rounded": "27.04",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTm1",
+        "field": "mean_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTm1",
+        "field": "all_seed_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTm2",
+        "field": "zs",
+        "pdf": "0.29156",
+        "computed_rounded": "0.29156",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTm2",
+        "field": "ft100",
+        "pdf": "0.25102",
+        "computed_rounded": "0.25102",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTm2",
+        "field": "improvement_percent",
+        "pdf": "13.91",
+        "computed_rounded": "13.91",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTm2",
+        "field": "mean_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "ETTm2",
+        "field": "all_seed_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "Tetouan",
+        "field": "zs",
+        "pdf": "0.47239",
+        "computed_rounded": "0.47239",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "Tetouan",
+        "field": "ft100",
+        "pdf": "0.23066",
+        "computed_rounded": "0.23066",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "Tetouan",
+        "field": "improvement_percent",
+        "pdf": "51.17",
+        "computed_rounded": "51.17",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "Tetouan",
+        "field": "mean_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      },
+      {
+        "model": "moirai1",
+        "dataset": "Tetouan",
+        "field": "all_seed_interval_percent",
+        "pdf": "(0, 0.5]",
+        "computed": "(0, 0.5]",
+        "matches": true
+      }
+    ],
+    "all_match": true,
+    "figure": "regenerated from original metrics; not a pixel comparison",
+    "new_model_execution": false
+  }
+}

@@ -19,9 +19,6 @@ dev = [
   "ruff>=0.6,<1",
 ]
 
-[project.scripts]
-tsfm-model-compatibility = "tsfm_crossover.models.compatibility:main"
-
 [tool.hatch.build.targets.wheel]
 packages = ["src/tsfm_crossover"]
 

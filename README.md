@@ -1,101 +1,114 @@
-# TSFM Zero-Shot–Few-Shot Crossover
+# TSFM Zero-Shot–Few-Shot 성능 전환 구간
 
-시계열 데이터 특성과 대상 데이터 학습량에 따라 Time-Series Foundation Model(TSFM)의 Few-Shot Fine-Tuning이 Zero-Shot 성능을 넘어서는 **전환 구간**을 분석하는 연구 저장소입니다.
+[English](README.en.md) · [재현 안내](docs/reproducibility.md) · [프로토콜](docs/final-protocol.md) · [데이터](docs/data-preparation.md) · [결과 스키마](docs/public-result-schema.md)
 
-> 현재 단계 (2026-10-09): 사용자 결정으로 **TTM·MOIRAI / ETTh1·ETTh2·ETTm1·ETTm2·Tetouan / H96 / 3 seeds**의 논문 분석에 집중합니다. 완료된 최종 test **270조건**을 원본 ZIP과 재대조했습니다. Timer 원본은 보존하고 주 분석에서는 제외합니다. 원래 primary9·네 horizon 1,944조건 전체 완료를 뜻하지 않습니다. [현재 분석과 한계](docs/main-study.md#현재-논문-분석-범위-2026-10-09)를 확인하세요.
+**제한된 미세조정 예산에서 시계열 파운데이션 모델의 Zero-Shot-Few-Shot 성능 전환 구간 분석**의 연구 코드와 실험 결과입니다. TTM-R3와 MOIRAI 1.1-R-small에서 학습 윈도 후보 풀을 늘릴 때, 미세조정이 Zero-Shot보다 좋아지고 더 큰 측정 비율에서도 그 개선을 유지하는 구간을 분석합니다.
 
-## 연구 범위
+## 주요 결과
 
-- 선택 모델: `ibm-granite/granite-timeseries-ttm-r3`, `Salesforce/moirai-1.1-R-small`
-- 현재 분석: ETTh1, ETTh2, ETTm1, ETTm2, Tetouan (서로 독립된 5개 출처가 아닌 3개 출처군)
-- 학습 비율: `0%, 0.5%, 1%, 2%, 5%, 10%, 20%, 50%, 100%`
-- 현재 예측 길이: `96`; 기존 실행 계획의 `192, 336, 720`은 이번 분석 범위 밖
-- 주 평가: 동일한 test window의 stride1 rolling-origin, train-std normalized channel-macro MAE. Raw MAE/MSE와 normalized MSE는 보조 지표입니다.
+최종 시험 결과 **270조건**을 제공합니다. 논문의 반올림 값을 옮긴 자료가 아니라 실제 실행 기록에서 추출한 원 정밀도 metric입니다. [표 1·표 2](results/paper/tables.md)와 [수치 대조 결과](results/paper/verification.json)를 확인할 수 있습니다.
 
-선택 모델의 Hugging Face revision, 공식 코드 commit과 GPU budget에서 검증한 패키지 버전을 고정합니다. 본 실험 v1은 context512, FP32, batch1, full-parameter, 최대1000steps, eval100/patience3입니다. TTM LR1e-4, MOIRAI LR5e-6을 모든 dataset/rate에 적용합니다. 이 예산은 수렴을 보장하지 않으며 test 성능으로 설정을 바꾸지 않습니다.
+- 평균 기준에서는 10개 모델–데이터 조합 모두 1% 이하에서 지속 개선했습니다.
+- 모든 3seed 기준에서는 7개가 (0, 0.5]%, MOIRAI–ETTh1이 (0.5, 1]%, TTM–ETTh1이 (2, 5]%였습니다. TTM–ETTm1은 관측 격자에서 기준을 충족하지 못했습니다.
+- 100% 후보 풀의 평균 paired 개선율은 TTM 0.31–5.38%, MOIRAI 0.93–51.17%였습니다.
+- 개선 폭과 최종 오차는 별개입니다. 100% 후보 풀의 평균 NMAE는 다섯 데이터 모두 TTM이 더 낮았습니다.
 
-TSFM-Bench는 관련 선행연구로만 인용합니다. 그 결과·체크포인트·실험 조건을 재현하거나 직접 비교하지 않고, 코드와 프로토콜도 복사·번안하지 않습니다. 구현은 실행 전에 검증하고 고정한 TTM·MOIRAI의 공식 구현과 공개 API를 사용해 독립적으로 작성합니다.
+![학습 윈도 후보 풀 비율에 따른 Zero-Shot 대비 개선율](results/paper/figure1.png)
 
-## 설치
+실선은 seed별 상대 개선율의 평균, 음영은 **seed 최소–최대 범위**입니다. 신뢰구간이 아닙니다. 선분은 관측점을 연결하며, 표시 구간은 정확한 연속 전환점을 뜻하지 않습니다.
 
-코어 프레임워크는 Python 3.11–3.13을 지원하고 GPU 또는 PyTorch 없이 실행할 수 있습니다.
+## 실험 설정
+
+| 항목 | 설정 |
+|---|---|
+| 모델 | TTM-R3, MOIRAI 1.1-R-small |
+| 데이터 | ETTh1, ETTh2, ETTm1, ETTm2, Tetouan |
+| 분할 / 입력 / 예측 | 시간순 60/20/20 / 512 / 96 |
+| 학습 후보 풀 | 0.5, 1, 2, 5, 10, 20, 50, 100% + Zero-Shot |
+| seed / 총 조건 | 1729, 2718, 31415 / 270 |
+| 표본 | 시간층화 중첩 표본, 같은 seed에서 모델 간 동일 표본 |
+| 학습 | FP32, 전체 파라미터, batch 1, 최대 1,000 updates |
+| 검증 | 고정 64윈도, 100 updates마다, patience 3, best validation checkpoint |
+| 학습률 | TTM 1e-4 / MOIRAI 5e-6 |
+| 주지표 | 채널별 MAE를 train population std로 나눈 뒤 평균한 NMAE |
+
+**0.5%는 학습 기간 전체에서 선택한 윈도 후보 비율**입니다. 관측 기간 0.5%만 수집했다는 뜻이 아닙니다. 100%는 후보 풀 전체를 허용한다는 뜻이며 전체 순회나 수렴을 뜻하지 않습니다. ETT 네 변형은 두 변압기 출처를 공유하므로 전체 출처군은 세 개입니다.
+
+## 빠른 시작: 저장 결과 분석
+
+Python 3.12를 권장합니다. 저장소 루트에서 실행합니다.
 
 ```bash
+git clone https://github.com/Han-Youseung/tsfm-zero-few-shot-crossover.git
+cd tsfm-zero-few-shot-crossover
 python -m venv .venv
-python -m pip install --upgrade pip
-python -m pip install -e ".[dev]"
-pytest
+# Linux/macOS: source .venv/bin/activate
+# Windows PowerShell: .venv/Scripts/Activate.ps1
+python -m pip install -r requirements/analysis.txt
+python -m tsfm_crossover.analysis.public_results --output outputs/paper-reproduction
 ```
 
-모델 의존성은 `requirements/ttm.txt`와 `requirements/moirai1.txt`로 분리하며 같은 환경에 함께 설치하지 않습니다. 기본 테스트는 실제 모델을 다운로드하지 않습니다.
+GPU·원 데이터·가중치 없이 표 1, 표 2, 그림 1, seed별 개선율, 누락 현황을 생성합니다. 출력 폴더는 새 이름이어야 합니다. 저장 metric 재집계와 모델 재실행은 [재현 안내](docs/reproducibility.md)에서 구분합니다.
 
-4.6단계 FP32 GPU 근거 12개를 검증했습니다. TTM은 A100, MOIRAI는 T4에서
-ETTh1·7채널·batch 1·context 512의 네 horizon을 실행했습니다.
-[GPU 근거 및 공식 loss 검토](docs/gpu-evidence-review.md)에 범위와 제약을 기록합니다.
+## Colab
 
-공통 adapter의 설정·checkpoint·RNG 정책과 실행 방법은 [adapter 문서](docs/adapters.md)에 있습니다.
-다음 GPU 실행은 `notebooks/40_main_study.ipynb`를 모델별 별도 세션에서 실행합니다.
-[14개 원 후보 준비 상태](docs/phase6-data-readiness.md)와 [pilot 기록](docs/validation-pilot.md)은 과거 근거로 보존합니다. 본 실험 설정은 `configs/study/main.yaml`이며 이전 pilot 설정의 test 금지는 유지합니다.
+- [결과 분석 — GPU 불필요](https://colab.research.google.com/github/Han-Youseung/tsfm-zero-few-shot-crossover/blob/main/notebooks/50_results_analysis.ipynb)
+- [TTM–ETTh1 최소 모델 예제](https://colab.research.google.com/github/Han-Youseung/tsfm-zero-few-shot-crossover/blob/main/notebooks/51_minimal_ttm_etth1.ipynb)
 
-## 구조
+최소 모델 예제는 기본 smoke 모드입니다. 2 updates, validation 4윈도, test 8윈도로 축소하므로 논문 수치와 직접 비교할 수 없습니다. 전체 논문은 270조건입니다.
 
-- `configs/`: dataset, model, experiment, protocol YAML
-- `src/tsfm_crossover/config/`: strict 설정 schema, loader, ID 생성
-- `src/tsfm_crossover/tracking/`: 결과 schema, 원자적 저장, 실행 환경 메타데이터
-- `src/tsfm_crossover/utils/`: seed와 재현성 유틸리티
-- `src/tsfm_crossover/{data,models,experiments,evaluation,analysis}/`: 다음 단계의 독립 구현 경계
-- `scripts/`: 재실행 가능한 CLI 진입점
-- `notebooks/`: 모델별 Colab compatibility probe
-- `tests/`: CPU 단위·통합 테스트
-- `results/`: 소용량 JSON/CSV, summary, figure, manifest
-- `data/`, `checkpoints/`, `logs/`: Git에 올리지 않는 로컬 산출물
+## 모델 재현
 
-세부 연구 프로토콜은 [docs/research-plan.md](docs/research-plan.md), 출처와 라이선스는 [docs/licenses-and-sources.md](docs/licenses-and-sources.md)에서 관리합니다.
-
-데이터 계층은 60:20:20 시간순 분할, train-only 통계와 모델 독립적인 nested sampling manifest를 제공합니다. 본 실험 입력은 native scaling만 사용하며 기존 StandardScaler 기능은 비활성화됩니다. [실행 가이드](docs/main-study.md)의 명시적인 데이터 준비 셀만 승인된 공식 파일을 내려받습니다.
-
-실제 데이터 배치, ZIP 안전 검사, 전체 audit 명령과 현재 차단 사유는 [real-data audit](docs/data-audit.md)에 기록합니다. 원본 데이터는 Git에 추가하지 않으며 `results/manifests/datasets/`에는 checksum과 집계 metadata만 저장합니다.
-
-Bundle 생성 경로, 공식 ETT 값 대조, canonical fingerprint와 데이터셋별 판정은 [data provenance](docs/data-provenance.md), [canonical format](docs/canonical-format.md), [data decisions](docs/data-decisions.md)에 기록합니다.
-
-모델·공식 코드 revision, 라이선스, context/horizon 제약과 당시 검증 기록은 [model compatibility](docs/model-compatibility.md)에 보존합니다. 본 실험 protocol v1 고정과 과거 compatibility manifest의 상태는 별개입니다.
-
-## 저장 원칙
-
-현재 논문 분석 설정은 `configs/analysis/primary5_h96.yaml`입니다. 원래 실행 설정
-`configs/study/main.yaml`의 primary9·네 horizon은 소급 변경하지 않습니다.
-아래는 과거 단계별 판단 기록이며 현재 실행 지침이 아닙니다.
-
-근거: [budget 검증](docs/budget-decision.md), [Traffic80GB 복구](docs/traffic-recovery-result.md).
-Traffic은 primary9에 포함되며 MOIRAI H720 학습만 80GB급 자원을 기다립니다.
-[Primary8 결정](docs/primary8-budget-decision.md), [복구 준비](docs/traffic-recovery.md),
-[초기 준비](docs/pre-experiment-readiness.md)는 변경된 과거 판단의 기록입니다.
-
-소스, YAML, 소용량 결과·요약·그림·manifest와 문서만 Git으로 관리합니다. 데이터셋, 모델 가중치, 캐시, 대용량 예측 배열과 원본 로그는 저장소에 추적하지 않습니다.
-
-## 추가 실험 없는 논문 작성 자료 (2026-10-09)
-
-기존 원 실행 ZIP 72개 / 최종 test 270조건만 재검증하여 본문 초안, 수식·설정,
-참고문헌, 전체 수치표와 그림을 내보냅니다. 새 학습이나 test 재평가는 하지 않습니다.
-[작성 체크리스트](docs/paper-writing/claims_and_checklist.txt),
-[방법·재현 부록](docs/paper-writing/methods_and_reproducibility.txt),
-[본문 초안 원천](docs/paper-writing/draft-ko.template.txt),
-[참고문헌](docs/paper-writing/references.bib)을 제공합니다.
+모델마다 별도 Python 3.12/Linux CUDA 환경을 사용합니다. [고정 버전](docs/versions.md)과 [데이터 준비](docs/data-preparation.md)를 먼저 확인하세요.
 
 ```bash
-python -m tsfm_crossover.analysis.writing_materials --archive-dir ORIGINAL_TTM_ZIP_DIRECTORY --archive ORIGINAL_MOIRAI_ZIP --output-dir NEW_OUTPUT_DIRECTORY
+python -m pip install -r requirements/ttm-main.txt
+python scripts/prepare_study_data.py --dataset ETTh1
+# TTM–ETTh1, seed 1729, ZS와 0.5%의 2조건 계획
+python scripts/reproduce_paper.py --scope pair --output outputs/pair
+# 호환 GPU와 깨끗한 checkout에서 실행
+python scripts/reproduce_paper.py --scope pair --output outputs/pair --execute
 ```
 
-명령은 원본 ZIP의 이름·SHA와 canonical review를 대조하고 기존 분석을 CPU로
-재계산하여 일치 여부를 확인합니다. 기존 output 폴더를 덮어쓰지 않습니다.
-Excel/PNG 제작 스크립트는 `scripts/build_paper_workbook.mjs`,
-`scripts/render_paper_materials.mjs`이며 별도 문서 도구 환경의
-`@oai/artifact-tool`, `sharp`, `playwright`를 사용합니다.
-`scripts/verify_paper_materials.py`는 `openpyxl`로 내보낸 XLSX를 독립적으로
-읽어 수치·계산식·공란·CSV 정밀도를 검사합니다. 이 선택 도구들은 기본 모델/테스트
-의존성을 바꾸지 않습니다. 생성 ZIP/XLSX/PNG는 로컬 전달 자료이며 Git에는 넣지 않습니다.
+전체 실험은 다섯 데이터 준비 후 각 모델 환경에서 실행합니다.
 
-학회 양식·분량·저자 정보는 미확정입니다. 본문은 제출용 완성본이 아닌 편집 가능한
-초안입니다. 100% pool은 전체 순회/수렴이 아니며, '지속 개선 기준 미충족'은
-결과 누락이 아닙니다. 최종 범위의 사후 결정, 3개 출처군, seed 3개,
-사전학습 중복 미감사, H96의 물리적 기간 차이 및 T4/A100 혼재를 공개합니다.
+```bash
+python scripts/reproduce_paper.py --scope full --family ttm --output outputs/full-ttm --execute
+python scripts/reproduce_paper.py --scope full --family moirai1 --output outputs/full-moirai1 --execute
+```
+
+각 모델은 135조건입니다. 원본 학습·평가 엔진의 runtime 검증과 checkpoint 재개를 사용합니다. 원 실행 설정에는 더 넓은 과거 계획이 보존되어 있으므로, 최종 논문 범위 실행에는 위 진입점을 사용합니다. GPU 재실행 검증 범위는 [검증 문서](docs/verification.md)를 확인하세요.
+
+## 결과 탐색 데모
+
+```bash
+python -m pip install -r requirements.txt
+python app.py
+```
+
+[로컬 앱](http://127.0.0.1:7860)에서 모델·데이터를 선택하고 seed별/평균 개선율, 실제 ZS·FT NMAE, 두 지속 개선 구간과 결과 다운로드를 확인할 수 있습니다. 실시간 모델 추론 없이 공개 CSV를 읽습니다. Hugging Face Spaces용 파일과 [배포 절차](docs/deployment.md)를 제공합니다. 호스팅된 Space 주소는 배포 후 추가합니다.
+
+## 저장소 구조
+
+| 경로 | 내용 |
+|---|---|
+| src/tsfm_crossover/ | 데이터·공식 모델 adapter·학습·평가 및 분석 코드 |
+| scripts/ | 데이터 준비, 최종 실험 실행, 결과 집계·검증 |
+| notebooks/ | 결과 분석 / 최소 모델 예제 두 가지 |
+| configs/ | 원 실행 설정과 최종 분석 범위 |
+| results/public/ | 270조건 CSV, 모델·환경·출처·체크섬 |
+| results/paper/ | 재생성 표 1·표 2·그림 1 |
+| results/manifests/ | 재현에 필요한 고정 모델·데이터·실험 근거 |
+| docs/ | 재현 방법·프로토콜·출처·스키마·검증 |
+| tests/ | 집계 경계 사례와 데이터·모델 실행 계약 테스트 |
+| spaces/ | Hugging Face Spaces 메타데이터 |
+
+## 한계·인용·권리
+
+seed 3개, 출처군 3개, H96, 제한된 학습 예산과 사후 확정 범위의 기술적 분석입니다. 사전학습 중복은 감사하지 않았습니다. 겹치는 rolling origins를 독립 표본으로 취급하지 않으며, 모든 시계열·모델·예산으로 일반화하지 않습니다. 실제 수집 비용이나 운영 성과를 측정한 연구가 아닙니다.
+
+공식 TTM·MOIRAI 구현과 공개 API를 사용한 독립 구현입니다. TSFM-Bench는 관련 문헌으로만 참고했습니다. [참고문헌](docs/references.bib), [원 결과 출처](docs/provenance.md), [CITATION.cff](CITATION.cff)를 제공합니다.
+
+논문 영문 제목은 *Zero-Shot to Few-Shot Crossover in Time-Series Foundation Models under a Bounded Fine-Tuning Budget*입니다. 제공된 최종 PDF에 저자·소속·게재 상태·DOI가 표시되지 않아 출판정보는 기재하지 않았습니다. 저장소 Git 작성자명은 한유승이며 공동저자·연구 역할별 기여는 확인되지 않았습니다. CFF는 소프트웨어 인용이며 사용한 commit과 CSV SHA-256을 함께 기록하세요.
+
+프로젝트 라이선스는 아직 지정되지 않았습니다. 공개 가시성을 이용 허락으로 간주하지 마세요. 원모델 코드·가중치·데이터의 권리는 별도로 적용됩니다. 원 데이터·가중치·개인 로그는 배포하지 않습니다.

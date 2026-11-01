@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Cite this software repository with the exact commit used. Paper authorship and publication metadata remain unconfirmed."
+type: software
+title: "TSFM Zero-Shot–Few-Shot Crossover research software"
+authors:
+  - family-names: "한"
+    given-names: "유승"
+repository-code: "https://github.com/Han-Youseung/tsfm-zero-few-shot-crossover"
+url: "https://github.com/Han-Youseung/tsfm-zero-few-shot-crossover"
+abstract: "Independent code and reviewed saved results for a bounded-budget TTM/MOIRAI crossover study. Software contributor name is supported by Git history; no paper publication metadata or license grant is asserted."
+keywords:
+  - time-series-foundation-models
+  - few-shot-learning
+  - reproducibility

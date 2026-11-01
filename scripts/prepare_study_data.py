@@ -4,11 +4,10 @@ import argparse
 import json
 from pathlib import Path
 
-from prepare_monash_variants import prepare as prepare_monash
 from prepare_primary_candidates import prepare as prepare_quality
 
+from tsfm_crossover.analysis.public_results import DATASETS
 from tsfm_crossover.data.pilot_data import digest, prepare_one
-from tsfm_crossover.experiments.main_plan import DATASETS
 
 
 def main():
@@ -20,9 +19,7 @@ def main():
     entry = pins[args.dataset]
     dest = root / entry["path"]
     if not dest.exists():
-        if args.dataset in {"Solar", "Traffic"}:
-            prepare_monash(args.dataset, root)
-        elif args.dataset in {"Weather", "Tetouan"}:
+        if args.dataset == "Tetouan":
             prepare_quality(args.dataset, root, root / "data/source_cache")
         else:
             prepare_one(

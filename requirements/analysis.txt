@@ -1,0 +1,4 @@
+# CPU-only public analysis environment; model packages are deliberately separate.
+-e .[dev]
+matplotlib>=3.9,<4
+ipython>=8,<10

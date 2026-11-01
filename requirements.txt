@@ -1,0 +1,4 @@
+# Hugging Face Spaces CPU runtime. Tested versions; training uses separate files.
+-e .
+gradio==6.31.0
+matplotlib==3.11.2

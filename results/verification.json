@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "conditions": 270,
+  "pdf_comparisons": 50,
+  "pdf_all_match": true,
+  "table1_rows": 10,
+  "internal_links_checked": 43,
+  "broken_links": [],
+  "notebook_code_cells_parsed": 13,
+  "text_files_privacy_scanned": 128,
+  "privacy_hits": [],
+  "existing_research_source_changed": [],
+  "raw_prediction_recomputation": false,
+  "new_gpu_execution": false
+}

@@ -7,3 +7,7 @@ src/tsfm_crossover/analysis/paper.py text eol=lf
 src/tsfm_crossover/analysis/paper_report.py text eol=lf
 src/tsfm_crossover/analysis/paper_template.html text eol=lf
 configs/analysis/primary5_h96.yaml text eol=lf
+# Public exports carry byte-level SHA-256 provenance; do not rewrite line endings.
+results/public/** -text whitespace=cr-at-eol
+results/paper/*.csv -text whitespace=cr-at-eol
+results/paper/*.json -text whitespace=cr-at-eol
