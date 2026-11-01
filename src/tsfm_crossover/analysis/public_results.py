@@ -344,6 +344,11 @@ def regenerate(input_path, output, reference=None):
     fig = plot_curves(result["curves"])
     fig.savefig(output / "figure1.png", dpi=180)
     fig.savefig(output / "figure1.svg")
+    svg = output / "figure1.svg"
+    svg.write_text(
+        "\n".join(line.rstrip() for line in svg.read_text(encoding="utf-8").splitlines()) + "\n",
+        encoding="utf-8",
+    )
     import matplotlib.pyplot as plt
 
     plt.close(fig)
