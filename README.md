@@ -1,4 +1,4 @@
-# TSFM Zero-Shot–Few-Shot 성능 전환 구간
+# TSFM Zero-Shot–Few-Shot 성능 전환 구간(KSC 2026)
 
 [English](README.en.md) · [재현 안내](docs/reproducibility.md) · [프로토콜](docs/final-protocol.md) · [데이터](docs/data-preparation.md) · [결과 스키마](docs/public-result-schema.md)
 
