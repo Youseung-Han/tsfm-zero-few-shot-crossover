@@ -2,8 +2,11 @@
 
 [한국어](README.md) · [Result tables](results/paper/tables.md) · [Reproduction guide](docs/reproducibility.md)
 
-How many training windows does a time-series foundation model need before fine-tuning consistently improves on zero-shot forecasting? We compare TTM-R3 and MOIRAI 1.1-R-small across increasing training-window pools under a fixed update budget. The repository provides the experiment code and saved metrics for 270 final-test conditions.
+How many training windows does a time-series foundation model need before fine-tuning consistently improves on zero-shot forecasting? We compare TTM-R3 and MOIRAI 1.1-R-small across increasing training-window pools under a fixed update budget. The repository provides the In industrial settings, forecasts are often needed before much data has been collected. How much training data does a time-series foundation model (TSFM) need for few-shot fine-tuning to outperform zero-shot forecasting? And how much does the improvement vary across models and datasets?
 
+We evaluated TTM-R3 and MOIRAI 1.1-R-small on five public time-series datasets. With the same maximum number of training updates across fine-tuning runs, we varied the share of training windows used for fine-tuning from 0.5% to 100% across eight levels. We compared each model’s forecast errors with its own zero-shot baseline to identify the smallest tested share at which fine-tuning reduced error and continued to do so at every larger share.
+
+This repository contains the experimental code and results from 270 evaluation runs, including the zero-shot baselines and three runs per setting.
 ## Findings
 
 - **Mean error across seeds.** All ten model–dataset combinations improved by the time the pool reached 1%, with gains sustained at every larger measured fraction.
